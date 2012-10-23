@@ -12,7 +12,12 @@ module Dice
         puts e
     rescue Dice::InvalidDice => e
         puts e
+    rescue OptionParser::ParseError => e
+        exit false
+    rescue SystemExit => e
+        # do nothing
     rescue Exception => e
+        puts e.class
         puts "There was an error, please report @ www..com"
         puts e.message
         puts e.backtrace
