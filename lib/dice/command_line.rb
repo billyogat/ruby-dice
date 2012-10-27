@@ -4,9 +4,15 @@ require "optparse"
 require_relative "version"
 
 module Dice
+  # Parses command line options.
   class CommandLine
+    # * +options+ - the parsed options
+    # * +args+ - the original arguments passed to the parser
     attr_reader :options, :args
 
+    # Initializes parser and parses the option arguments.
+    # ==== Arguments
+    # * +args+ - +ARGV+ from the command line
     def initialize(args)
       @args = args
       @original_args = args.dup
@@ -45,19 +51,27 @@ module Dice
 
     end
 
+    # Helper method used when parsing is complete. There should only be one
+    # argument left after parsing, the dice roll(s).
     def valid_arguments?
       @args.size == 1
     end
 
+    # Determines if the format of the dice roll(s) is correct.
+    # Valid dice input follows this format:
+    #   [num]d[num]([+ OR -][num]d[num])*([+ OR -][num])*
+    # Where anything in between  <tt>()</tt> is optional and <tt>*</tt> means one or more.
     def valid_dice?
       match = /^\d*d\d+([+-]\d+d\d+)*([+-]\d*)*$/.match(@args[0])
       ! match.nil?
     end
 
+    # Displays the help text.
     def help
       @parser
     end
 
+    # Returns the dice roll(s) from the command line.
     def dice
       @args[0]
     end
