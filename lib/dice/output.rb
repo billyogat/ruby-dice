@@ -4,9 +4,9 @@ module Dice
   class Output
 
     # Create new output object with the required data.
-    # ==== Arguments
-    # * +results+ - the results of a dice roll from Roller
-    # * +verbose+ - false [answer only], true [data from all rolls]
+    #
+    # @param results [Hash] the results of a dice roll from Roller
+    # @param verbose [Boolean] +false+ [answer only], +true+ [data from all rolls]
     def initialize(results, verbose)
       @sum = results.map { |h| h.values }.flatten.inject(:+)
       @display = ""
@@ -15,7 +15,8 @@ module Dice
     end
 
     # Format the data and return a String.
-    # *RETURN* a String of the formatted data
+    #
+    # @return [String] of the formatted data
     def format
       output = @sum.to_s
 
